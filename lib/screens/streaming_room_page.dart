@@ -50,6 +50,7 @@ class _StreamingRoomState extends State<StreamingRoom> {
   List<StreamingModel> streamingModels = [];
 
   var startTime;
+  var secondTime;
 
   @override
   void initState() {
@@ -118,12 +119,18 @@ class _StreamingRoomState extends State<StreamingRoom> {
     setState(() {});
   }
 
+  Future<void> reconnWebRTC() async {
+    await reconnSocket();
+    await checkAndRequestPermissions();
+    setState(() {});
+  }
+
   Future connectSocket() async {
     try {
 
      startTime = DateTime.now();
       newSocket = IO.io(
-        "http://54.180.79.59:30006",
+        "http://3.34.126.34:30006",
         IO.OptionBuilder().setTransports(['websocket']).build(),
       );
 
@@ -131,11 +138,39 @@ class _StreamingRoomState extends State<StreamingRoom> {
         print('connect!');
       });
 
+      newSocket.onDisconnect((data) {
+        
+        print('disconnect!');
+
+secondTime = DateTime.now();
+      // 서버 소켓 연결이 끊겼을 때 다른 주소로 재연결
+        reconnWebRTC();
+      });
+
+
       initializeSocketListeners();
     } catch (error) {
       print('Socket 연결 실패: $error');
     }
   }
+
+  Future reconnSocket() async {
+     await leaveRoom();
+    await initRender();
+  // 새로운 서버 주소를 설정
+  String newServerAddress = "http://3.64.147.203:30006";
+
+  newSocket = IO.io(
+    newServerAddress,
+    IO.OptionBuilder().setTransports(['websocket']).build(),
+  );
+
+  newSocket.onConnect((data) {
+    print('connect!');
+  });
+
+  initializeSocketListeners();
+}
 
   void initializeSocketListeners() {
     newSocket.on('joined', (data) {
@@ -214,11 +249,14 @@ class _StreamingRoomState extends State<StreamingRoom> {
     pc!.onDataChannel = (channel) {
       _addDataChannel(channel);
     };
+    
     pc!.onAddStream = (stream) {
       var endTime = DateTime.now();
       var totalDuration = endTime.difference(startTime).inMilliseconds;
-
-    print('총 연결 시간: $totalDuration ms');
+      var totalDuration2 = endTime.difference(secondTime).inMilliseconds;
+      print('총 연결 시간: $totalDuration ms');
+      print('relay 교체 후 연결 시간: $totalDuration2 ms');
+    
       _remoteRenderer?.srcObject = stream;
     };
 
