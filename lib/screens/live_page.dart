@@ -71,7 +71,7 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
     try {
       startTime = DateTime.now();
       newSocket = IO.io(
-        "http://54.180.79.59:30006",
+        "http://3.34.126.34:30006",
         IO.OptionBuilder().setTransports(['websocket']).build(),
       );
 
@@ -79,6 +79,14 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
         print('connect!');
         newSocket.emit('getStream');
       });
+
+      newSocket.onDisconnect((data) {
+        print('disconnect!');
+
+        // 서버 소켓 연결이 끊겼을 때 다른 주소로 재연결
+        connectToNewServer();
+      });
+
 
       newSocket.on('streamArr', (data) {
         var endTime = DateTime.now();
@@ -103,6 +111,22 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
 
     return completer.future; // 이 Future는 streamArr 이벤트 수신 완료까지 기다림
   }
+
+  void connectToNewServer() {
+  // 새로운 서버 주소를 설정
+  String newServerAddress = "http://43.201.75.111:30006";
+
+  newSocket = IO.io(
+    newServerAddress,
+    IO.OptionBuilder().setTransports(['websocket']).build(),
+  );
+
+  newSocket.onConnect((data) {
+    print('connect!');
+  });
+
+}
+
 
   // 이 함수는 클래스 레벨의 streamData 변수를 사용하여 IPFS에서 파일을 다운로드합니다.
   Future<List<StreamingModel>> downloadFilesFromIPFS() async {
