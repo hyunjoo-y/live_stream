@@ -9,7 +9,8 @@
 
 ## 🌟 주요 기능
 
-![image](https://github.com/user-attachments/assets/f6827251-2990-4e97-a07c-28dba820ca5e)
+![image](https://github.com/user-attachments/assets/cdda0e05-bb97-44bf-aa6a-af7965f7736a)
+
 
 ✅ **WebRTC 기반 실시간 P2P 스트리밍**  
 ✅ **IPFS를 활용한 콘텐츠 저장 및 공유**  
