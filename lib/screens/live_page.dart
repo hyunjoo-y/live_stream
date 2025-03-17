@@ -28,11 +28,11 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
   late Web3Client ethClient;
   late Contracts contract;
 
-  final String blockchainUrl = "http://115.85.181.212:30011";
-  final String contractAddress = "0xD6DcbF990DE278ec3f151098D5505C678b30A70A";
-  //final String contractAddress = "0x174a06033F9a61Df6716bd4Dc09c1806Ba80251f";
+  final String blockchainUrl = "http://IP_address";
+  final String contractAddress = "0x...";
+  //final String contractAddress = "0x...";
   final String priv =
-      "778f4905fcee27222ef12e05885d5edf740a5bf2881e4340c9379a4cf99c711c";
+      "private_key";
   Map<String, dynamic> streamData = {};
   var startTime;
 
