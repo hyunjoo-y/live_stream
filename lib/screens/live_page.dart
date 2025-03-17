@@ -71,7 +71,7 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
     try {
       startTime = DateTime.now();
       newSocket = IO.io(
-        "http://3.34.126.34:30006",
+        "http://IP-address",
         IO.OptionBuilder().setTransports(['websocket']).build(),
       );
 
@@ -114,7 +114,7 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
 
   void connectToNewServer() {
   // 새로운 서버 주소를 설정
-  String newServerAddress = "http://43.201.75.111:30006";
+  String newServerAddress = "http://IP_address";
 
   newSocket = IO.io(
     newServerAddress,
@@ -128,7 +128,7 @@ class _LiveStreamingPageState extends State<LiveStreamingPage> {
 }
 
 
-  // 이 함수는 클래스 레벨의 streamData 변수를 사용하여 IPFS에서 파일을 다운로드합니다.
+  // streamData 변수를 사용하여 IPFS에서 파일을 다운로드
   Future<List<StreamingModel>> downloadFilesFromIPFS() async {
     var startTime = DateTime.now();
 
