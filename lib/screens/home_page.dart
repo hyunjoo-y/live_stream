@@ -37,10 +37,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late Contracts contract;
 
   final String blockchainUrl = "http://115.85.181.212:30011";
-  final String contractAddress = "0xD6DcbF990DE278ec3f151098D5505C678b30A70A";
-  //final String contractAddress = "0x174a06033F9a61Df6716bd4Dc09c1806Ba80251f";
+  final String contractAddress = "0x...";
+  //final String contractAddress = "0x..";
   final String priv =
-      "778f4905fcee27222ef12e05885d5edf740a5bf2881e4340c9379a4cf99c711c";
+      "private_key";
   late String streamHash = "";
 
   @override
@@ -80,7 +80,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     await file.writeAsString(jsonString);
 
     String credentials =
-        "2ONnXhK5E0OyIEBTFsaZVRB5Agj:bba5e99a4c2228f58f06bd70af022106";
+        "...:...";
+    // ex:"2ONnXhK5E0OyIEBTFsaZVRB5Agj:bba5e99a4c2228f58f06bd70af022106"
     Codec<String, String> stringToBase64 = utf8.fuse(base64);
     String encoded = stringToBase64.encode(credentials);
     streamHash = await uploadFileToIPFS(file, encoded);
