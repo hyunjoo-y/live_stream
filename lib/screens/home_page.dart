@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late Web3Client ethClient;
   late Contracts contract;
 
-  final String blockchainUrl = "http://115.85.181.212:30011";
+  final String blockchainUrl = "http://IP_address";
   final String contractAddress = "0x...";
   //final String contractAddress = "0x..";
   final String priv =
